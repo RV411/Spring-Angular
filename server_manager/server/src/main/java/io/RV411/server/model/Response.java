@@ -17,8 +17,8 @@ public class Response {
     protected LocalDateTime timeStamp;
     protected int statusCode;
     protected HttpStatus status;
-    protected String reason;
+    protected String reason;            //maybe null if it is success
     protected String message;
-    protected String developerMessage;
+    protected String developerMessage;  //maybe null if it is success
     protected Map<?, ?> data;
 }
