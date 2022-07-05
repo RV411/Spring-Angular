@@ -18,7 +18,7 @@ import { ServerService } from './service/server.service';
 })
 export class AppComponent implements OnInit {
   appState$: Observable<AppState<CustomResponse>>;
-  readonly DataState = DataState;
+  readonly DataState = DataState;                   //Sirve para el html, para loading, load o error
   readonly Status = Status;
   private filterSubject = new BehaviorSubject<string>('');
   private dataSubject = new BehaviorSubject<CustomResponse>(null);
@@ -27,7 +27,8 @@ export class AppComponent implements OnInit {
   isLoading$ = this.isLoading.asObservable();
 
 
-  constructor(private serverService: ServerService, private notifier: NotificationService) { }
+  constructor(private serverService: ServerService, 
+              private notifier: NotificationService) { }
 
   ngOnInit(): void {
     this.appState$ = this.serverService.servers$
@@ -35,7 +36,9 @@ export class AppComponent implements OnInit {
         map(response => {
           this.notifier.onDefault(response.message);
           this.dataSubject.next(response);
-          return { dataState: DataState.LOADED_STATE, appData: { ...response, data: { servers: response.data.servers.reverse() } } }
+          return { dataState: DataState.LOADED_STATE, appData: {
+             ...response, data: { servers: response.data.servers.reverse() } 
+            } }
         }),
         startWith({ dataState: DataState.LOADING_STATE }),
         catchError((error: string) => {
@@ -50,7 +53,8 @@ export class AppComponent implements OnInit {
     this.appState$ = this.serverService.ping$(ipAddress)
       .pipe(
         map(response => {
-          const index = this.dataSubject.value.data.servers.findIndex(server =>  server.id === response.data.server.id);
+          const index = this.dataSubject.value.data.servers.findIndex(
+            server =>  server.id === response.data.server.id);
           this.dataSubject.value.data.servers[index] = response.data.server;
           this.notifier.onDefault(response.message);
           this.filterSubject.next('');
@@ -71,7 +75,9 @@ export class AppComponent implements OnInit {
       .pipe(
         map(response => {
           this.dataSubject.next(
-            {...response, data: { servers: [response.data.server, ...this.dataSubject.value.data.servers] } }
+            {...response, data: { 
+              servers: [response.data.server, ...this.dataSubject.value.data.servers] 
+            } }
           );
           this.notifier.onDefault(response.message);
           document.getElementById('closeModal').click();
