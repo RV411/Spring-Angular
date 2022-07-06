@@ -14,7 +14,8 @@ import { ServerService } from './service/server.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush     //best strategy for Input_change, Event, Observables
+  //changeDetection: ChangeDetectionStrategy.Default    //best strategy for checkalways, check for every change
 })
 export class AppComponent implements OnInit {
   appState$: Observable<AppState<CustomResponse>>;
@@ -60,7 +61,7 @@ export class AppComponent implements OnInit {
           this.filterSubject.next('');
           return { dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }
         }),
-        startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
+        startWith({ dataState: DataState.LOADING_STATE, appData: this.dataSubject.value }),
         catchError((error: string) => {
           this.filterSubject.next('');
           this.notifier.onError(error);
@@ -85,7 +86,7 @@ export class AppComponent implements OnInit {
           serverForm.resetForm({ status: this.Status.SERVER_DOWN });
           return { dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }
         }),
-        startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
+        startWith({ dataState: DataState.LOADING_STATE, appData: this.dataSubject.value }),
         catchError((error: string) => {
           this.isLoading.next(false);
           this.notifier.onError(error);
@@ -101,7 +102,7 @@ export class AppComponent implements OnInit {
           this.notifier.onDefault(response.message);
           return { dataState: DataState.LOADED_STATE, appData: response };
         }),
-        startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
+        startWith({ dataState: DataState.LOADING_STATE, appData: this.dataSubject.value }),
         catchError((error: string) => {
           this.notifier.onError(error);
           return of({ dataState: DataState.ERROR_STATE, error });
@@ -120,7 +121,7 @@ export class AppComponent implements OnInit {
           this.notifier.onDefault(response.message);
           return { dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }
         }),
-        startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
+        startWith({ dataState: DataState.LOADING_STATE, appData: this.dataSubject.value }),
         catchError((error: string) => {
           this.notifier.onError(error);
           return of({ dataState: DataState.ERROR_STATE, error });

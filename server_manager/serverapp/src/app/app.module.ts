@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-
+import { NotificationModule } from './notification.module'
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +14,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NotificationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
