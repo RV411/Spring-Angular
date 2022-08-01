@@ -1,0 +1,9 @@
+Reddit/reddino/.mvn/*
+Reddit/reddino/.mvn/wrapper/maven-wrapper.properties
+Reddit/reddino/.mvn/wrapper/maven-wrapper.jar
+Reddit/reddino/mvnw
+SpringCloud/demo/build.gradle
+SpringCloud/demo/gradlew
+SpringCloud/demo/gradlew.bat
+SpringCloud/demo/settings.gradle
+SpringCloud/demo/.gitignore
