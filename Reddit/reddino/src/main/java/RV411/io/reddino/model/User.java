@@ -16,8 +16,8 @@ import java.time.Instant;
 
 @Entity
 @Data
-@Builder
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,6 @@ public class User {
     @NotEmpty(message = "Email is required")
     private String email;
     private Instant created;
-    private Boolean enabled;
+    private boolean enabled;
+
 }
